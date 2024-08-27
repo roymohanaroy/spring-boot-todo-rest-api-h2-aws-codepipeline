@@ -1,0 +1,61 @@
+version: 0.2
+
+
+env:
+  shell: shell-tag
+  variables:
+    key: "value"    
+  parameter-store:
+    key: "value"
+  exported-variables:
+    - variable
+    - variable
+  secrets-manager:
+    key: secret-id:json-key:version-stage:version-id
+  git-credential-helper: no | yes
+
+proxy:
+  upload-artifacts: no | yes
+  logs: no | yes
+
+batch:
+  fast-fail: false | true
+  # build-list:
+  # build-matrix:
+  # build-graph:
+        
+phases:
+  install:
+    on-failure: ABORT | CONTINUE
+    runtime-versions:
+      java : correttor8
+      runtime: version
+    commands:
+      - echo install  
+  pre_build:
+    on-failure: ABORT | CONTINUE
+    commands:
+      - echo pre_build
+  build:
+    on-failure: ABORT | CONTINUE
+    commands:
+      - mvn package
+      - echo build
+    
+  post_build:
+    on-failure: ABORT | CONTINUE
+    commands:
+      - echo post_build    
+reports:
+  report-group-name-or-arn:
+    files:
+      - location
+      - location
+    base-directory: location
+    discard-paths: no | yes
+    file-format: report-format
+artifacts:
+  files:
+    -'**/*'
+    - target/02-todo-rest-api-h2-0.0.1-SNAPSHOT.jar
+    discard-paths:yes
