@@ -2,24 +2,20 @@ version: 0.2
         
 phases:
   install:
-    on-failure: ABORT | CONTINUE
     runtime-versions:
       java : corretto8
     commands:
       - echo install  
   pre_build:
-    on-failure: ABORT | CONTINUE
     commands:
       - echo pre_build
   build:
     on-failure: ABORT | CONTINUE
     commands:
-      - mvn clean package
-      - echo $CODEBUILD_SRC_DIR
+      - mvn package
       - echo build
     
   post_build:
-    on-failure: ABORT | CONTINUE
     commands:
       - echo post_build    
 
@@ -27,4 +23,4 @@ artifacts:
   files:
     -'**/*'
     - target/02-todo-rest-api-h2-0.0.1-SNAPSHOT.jar
-   discard-paths:true
+   discard-paths:yes
