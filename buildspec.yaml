@@ -16,7 +16,7 @@ env:
 
 proxy:
   upload-artifacts: true
-  logs: no | yes
+  logs: true
 
 batch:
   fast-fail: false | true
@@ -52,7 +52,7 @@ reports:
       - location
       - location
     base-directory: location
-    discard-paths: no | yes
+    discard-paths: true
     file-format: report-format
 artifacts:
   files:
