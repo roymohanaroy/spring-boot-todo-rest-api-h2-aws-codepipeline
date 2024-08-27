@@ -15,7 +15,7 @@ env:
   git-credential-helper: false 
 
 proxy:
-  upload-artifacts: no | yes
+  upload-artifacts: true
   logs: no | yes
 
 batch:
