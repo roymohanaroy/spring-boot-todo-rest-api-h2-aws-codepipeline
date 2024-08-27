@@ -1,34 +1,10 @@
-version: 0.2
-
-
-env:
-  shell: shell-tag
-  variables:
-    key: "value"    
-  parameter-store:
-    key: "value"
-  exported-variables:
-    - variable
-    - variable
-  secrets-manager:
-    key: secret-id:json-key:version-stage:version-id
-  git-credential-helper: false 
-
-proxy:
-  upload-artifacts: true
-  logs: true
-
-batch:
-  fast-fail: false | true
-  # build-list:
-  # build-matrix:
-  # build-graph:
+version: 0.2	
         
 phases:
   install:
     on-failure: ABORT | CONTINUE
     runtime-versions:
-      java : correttor8
+      java : correttor11
       runtime: version
     commands:
       - echo install  
@@ -39,23 +15,17 @@ phases:
   build:
     on-failure: ABORT | CONTINUE
     commands:
-      - mvn package
+      - mvn clean package
+      - echo $CODEBUILD_SRC_DIR
       - echo build
     
   post_build:
     on-failure: ABORT | CONTINUE
     commands:
       - echo post_build    
-reports:
-  report-group-name-or-arn:
-    files:
-      - location
-      - location
-    base-directory: location
-    discard-paths: true
-    file-format: report-format
+
 artifacts:
   files:
     -'**/*'
     - target/02-todo-rest-api-h2-0.0.1-SNAPSHOT.jar
-    discard-paths:true
+   discard-paths:true
